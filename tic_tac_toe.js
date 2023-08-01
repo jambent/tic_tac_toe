@@ -181,6 +181,46 @@ function makeSymbolChoice(){
 
 }
 
+
+function minimax(board,currentSymbol,treeDepth = 0){
+    
+    const possibleMoves = [];
+    const possibleMoveScore = [];
+
+    let tempBoard = board;
+    for (let i = 0; i < tempBoard.state.length; i++){
+        if (tempBoard.state[i] === " ") {
+            currentSymbol === "Noughts"? tempBoard.update(square,"O") : tempBoard.update(square,"X");
+            if (tempBoard.checkForWin() === "noughtsWins" && currentSymbol === "Noughts"){
+                possibleMoves.push[i];
+                possibleMoveScore[i].push(10);
+            }
+            else if (tempBoard.checkForWin() === "crossesWins" && currentSymbol === "Crosses"){
+                possibleMoves.push[i];
+                possibleMoveScore[i].push(10);
+            }
+            else if (tempBoard.checkForWin() === "crossesWins" && currentSymbol === "Noughts"){
+                possibleMoves.push[i];
+                possibleMoveScore[i].push(-10);
+            }
+            else if (tempBoard.checkForWin() === "noughtsWins" && currentSymbol === "Crosses"){
+                possibleMoves.push[i];
+                possibleMoveScore[i].push(-10);
+            }
+            else if (tempBoard.checkMoveStillAvailable() !== true && tempBoard.checkForWin() === false){
+                possibleMoves.push[i];
+                possibleMoveScore[i].push(0);
+            }
+
+            possibleMoves.push(i);
+
+        }
+    }
+
+}
+
+
+
 const prompt=require("prompt-sync")({sigint:true});
 
 
