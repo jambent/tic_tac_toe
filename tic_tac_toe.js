@@ -106,14 +106,18 @@ function newGame (){
 }
 
 
-async function initialiseGame(){
-    const readline = require('node:readline/promises');
+function initialiseGame(){
+    /*const readline = require('node:readline/promises');
     const rl = readline.createInterface({  
     input: process.stdin,
     output: process.stdout,});
-
-    let playerInput = String(await rl.question('Shall we play a game? y/n \n'));
-    rl.close();
+*/
+    
+    //const prompt=require("prompt-sync")({sigint:true});
+    //let playerInput = prompt('Shall we play a game? y/n \n');
+    //if \n used with prompt, the prompt appears twice, hence no \n below:
+    let playerInput = prompt('Shall we play a game? y/n  ');
+    //rl.close();
     
     if(playerInput.toLowerCase() === "y"){
         return true;
@@ -125,7 +129,7 @@ async function initialiseGame(){
         console.log("Type y or n, please");
         return false;
     }
-    rl.close(); 
+    //rl.close(); 
 }
 
 function renderInputNumbersDemo(){
@@ -162,11 +166,12 @@ function selectFirstMovePlayer(){
 
 }
 
+const prompt=require("prompt-sync")({sigint:true});
 
-
-async function main(){
+//async function main(){
+function main(){
     
-    let chooseToPlay = await initialiseGame();
+    let chooseToPlay = initialiseGame();
     
     let board;
     if (chooseToPlay === true) {
@@ -198,12 +203,14 @@ async function main(){
         
         
     while (board.checkMoveStillAvailable() === true && board.checkForWin() === false){
-        const readline = require('node:readline/promises');
+        /*const readline = require('node:readline/promises');
         const rl = readline.createInterface({  
             input: process.stdin,
             output: process.stdout,});
+        */
+        //square = Number(await rl.question(`Enter square number (between 1 and 9) to make your move, ${currentPlayer}:\n`));
         
-        square = Number(await rl.question(`Enter square number (between 1 and 9) to make your move, ${currentPlayer}:\n`));
+        square = Number(prompt(`Enter square number (between 1 and 9) to make your move, ${currentPlayer}:  `));
         square -= 1;
         
             
@@ -213,7 +220,7 @@ async function main(){
         else {
             continue;
         }
-        rl.close();
+        //rl.close();
 
         board.render();
 
