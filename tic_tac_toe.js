@@ -107,17 +107,10 @@ function newGame (){
 
 
 function initialiseGame(){
-    /*const readline = require('node:readline/promises');
-    const rl = readline.createInterface({  
-    input: process.stdin,
-    output: process.stdout,});
-*/
-    
-    //const prompt=require("prompt-sync")({sigint:true});
-    //let playerInput = prompt('Shall we play a game? y/n \n');
+
     //if \n used with prompt, the prompt appears twice, hence no \n below:
     let playerInput = prompt('Shall we play a game? y/n  ');
-    //rl.close();
+
     
     if(playerInput.toLowerCase() === "y"){
         return true;
@@ -129,7 +122,7 @@ function initialiseGame(){
         console.log("Type y or n, please");
         return false;
     }
-    //rl.close(); 
+
 }
 
 function renderInputNumbersDemo(){
@@ -203,12 +196,6 @@ function main(){
         
         
     while (board.checkMoveStillAvailable() === true && board.checkForWin() === false){
-        /*const readline = require('node:readline/promises');
-        const rl = readline.createInterface({  
-            input: process.stdin,
-            output: process.stdout,});
-        */
-        //square = Number(await rl.question(`Enter square number (between 1 and 9) to make your move, ${currentPlayer}:\n`));
         
         square = Number(prompt(`Enter square number (between 1 and 9) to make your move, ${currentPlayer}:  `));
         square -= 1;
@@ -220,7 +207,7 @@ function main(){
         else {
             continue;
         }
-        //rl.close();
+
 
         board.render();
 
