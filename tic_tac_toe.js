@@ -138,21 +138,43 @@ function renderInputNumbersDemo(){
 }
 
 
-function selectFirstMovePlayer(){
+function selectFirstPlayer(){
+
+    const randonNum = Math.random();
+    //let firstPlayerChoice = {};
+
+    if (randonNum <= 0.4999) {
+        //firstPlayerChoice.first = "computer";
+        //firstPlayerChoice.second = "human";
+        console.log("I will make the first move\n")
+        return "computer";
+    }
+    else {
+        //firstPlayerChoice.first = "human";
+        //firstPlayerChoice.second = "computer";
+        console.log("You will make the first move\n")
+        return "human";
+    }
+    
+}
+
+function makeSymbolChoice(){
     
     let noughts;
     let crosses;
 
     const randonNum = Math.random();
     if (randonNum <= 0.4999) {
-        noughts = true;
-        crosses = false;
-        console.log("\nNoughts will make the first move\n");
+        noughts = "human";
+        crosses = "computer";
+        console.log("You will play as noughts");
+        //console.log("\nNoughts will make the first move\n");
     }
     else {
-        noughts = false;
-        crosses = true;
-        console.log("\nCrosses will make the first move\n");
+        noughts = "computer";
+        crosses = "human";
+        console.log("You will play as crosses");
+        //console.log("\nCrosses will make the first move\n");
     }
 
     return {"noughts":noughts,"crosses":crosses};
@@ -161,7 +183,7 @@ function selectFirstMovePlayer(){
 
 const prompt=require("prompt-sync")({sigint:true});
 
-//async function main(){
+
 function main(){
     
     let chooseToPlay = initialiseGame();
@@ -177,18 +199,34 @@ function main(){
 
     renderInputNumbersDemo();
 
-    const firstMovePlayerChoice = selectFirstMovePlayer();
-    let noughts = firstMovePlayerChoice.noughts;
-    let crosses = firstMovePlayerChoice.crosses;
-
     let currentPlayer;
-    if (noughts === true) {
-        currentPlayer = "Noughts";
+    const firstPlayerChoice = selectFirstPlayer();
+    if (firstPlayerChoice === "computer") {
+        currentPlayer = "computer"; 
     }
     else {
-        currentPlayer = "Crosses";
+        currentPlayer = "human";
+    }
+
+    const symbolChoice = makeSymbolChoice();
+    let noughts = makeSymbolChoice.noughts;
+    let crosses = makeSymbolChoice.crosses;
+
+    let currentSymbol;
+    if (noughts === "human" && currentPlayer === "human") {
+        currentSymbol = "Noughts";
+    }
+    else if (crosses === "human" && currentPlayer === "human"){
+        currentSymbol = "Crosses";
+    }
+    else if (noughts === "computer"){
+        currentSymbol = "Noughts";
+    }
+    else {
+        currentSymbol = "Crosses";
     }
     
+
     
     board.render();
 
@@ -197,12 +235,13 @@ function main(){
         
     while (board.checkMoveStillAvailable() === true && board.checkForWin() === false){
         
-        square = Number(prompt(`Enter square number (between 1 and 9) to make your move, ${currentPlayer}:  `));
-        square -= 1;
-        
+        if (currentPlayer === "human") {
+            square = Number(prompt(`Enter square number (between 1 and 9) to make your move:  `));
+            square -= 1;
+        }
             
         if (board.checkSquareIsEmpty(square) === true) {
-           noughts === true? board.update(square,"O") : board.update(square,"X")
+           currentSymbol === "Noughts"? board.update(square,"O") : board.update(square,"X")
         }
         else {
             continue;
@@ -212,7 +251,7 @@ function main(){
         board.render();
 
         //Change player, for next move
-        const temp = noughts;
+        /*const temp = noughts;
         noughts = crosses;
         crosses = temp;
         if (noughts === true) {
@@ -220,6 +259,20 @@ function main(){
         }
         else {
             currentPlayer = "Crosses";
+        }
+        */
+        if (currentPlayer==="human") {
+            currentPlayer = "computer";
+        }
+        else {
+            currentPlayer = "human";
+        }
+
+        if (currentSymbol==="Noughts") {
+            currentSymbol = "Crosses";
+        }
+        else {
+            currentSymbol = "Noughts";
         }
 
     }
